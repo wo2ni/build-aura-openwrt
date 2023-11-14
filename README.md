@@ -5,3 +5,9 @@ Quickly compile aura-openwrt using Docker
 ```
 ./build.sh
 ```
+
+
+### 默认密码
+```
+whoami
+```
