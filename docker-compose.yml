@@ -1,0 +1,14 @@
+version: '3'
+services:
+  make_openwrt:
+    image: make_openwrt:v1.0
+    container_name: build_openwrt
+    network_mode: host
+    tty: true
+    volumes:
+      - /work:/root/Openwrt
+    environment:
+      - TZ=Asia/Shanghai
+      #- ALL_PROXY=127.0.0.1:11089
+      #- http_proxy=127.0.0.1:18889
+      #- https_proxy=127.0.0.1:18889
