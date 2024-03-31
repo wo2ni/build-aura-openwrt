@@ -13,4 +13,3 @@ whoami
 ```
 
 ### 说明
-<u>使用make menuconfig配置时,make命令前需要加$符号</u>
