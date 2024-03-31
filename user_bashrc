@@ -1,7 +1,5 @@
 # make Openwrt bashrc config
 
-clear
-
 #--Color Code;
 Cls="\033[0m"
 Grey="\033[1;30m"
@@ -15,20 +13,6 @@ White="\033[1;38m"
 
 B_Red="\033[41m"
 Blue_White="\033[44m"
-
-printf "${Cyan_blue}"
-cat << "EOF"
-
- ██████╗ ██████╗ ███████╗███╗   ██╗██╗    ██╗██████╗ ████████╗
-██╔═══██╗██╔══██╗██╔════╝████╗  ██║██║    ██║██╔══██╗╚══██╔══╝
-██║   ██║██████╔╝█████╗  ██╔██╗ ██║██║ █╗ ██║██████╔╝   ██║
-██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║███╗██║██╔══██╗   ██║
-╚██████╔╝██║     ███████╗██║ ╚████║╚███╔███╔╝██║  ██║   ██║
- ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝
-                        L-H-T
-EOF
-printf "${Cls}\n"
-printf "\t\t${Red}请使用 sudo su切换至root用户.${Cls}\n"
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
@@ -72,7 +56,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+PS1="\[\033[01;37m\]\$? \$(if [[ \$? == 0 ]]; then echo \"\[\033[01;32m\]\342\234\223\"; else echo \"\[\033[01;31m\]\342\234\227\"; fi) $(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]\h'; else echo '\[\033[01;35m\]\u'; fi)\[\033[01;34m\] \W 💗\[\033[00m\] "
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -91,14 +75,8 @@ alias l='ls -CF'
 alias s='ls -CF'
 alias gcc="color_compile gcc"
 alias g++="color_compile g++"
-alias make="color_compile make"
 
-make='/usr/bin/make'
-alias make_nconfig="/usr/bin/make nconfig"
-alias make_menuconfig="/usr/bin/make menuconfig"
-
-alias make_kernel_nconfig="/usr/bin/make kernel_nconfig"
-alias make_kernel_menuconfig="/usr/bin/make kernel_menuconfig"
+make='color_compile make'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -112,4 +90,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export FORCE_UNSAFE_CONFIGURE=1
+cd /home/$MY_USER
