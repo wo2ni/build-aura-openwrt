@@ -45,8 +45,8 @@ RUN apt-get install -y sudo bash-completion less ack antlr3 asciidoc autoconf au
     vim wget xmlto xxd zlib1g-dev uuid-runtime upx git-core libz-dev lib32gcc-s1 zstd libgsl-dev bc u-boot-tools 
 
 # Config error warning colors.
-COPY color-compile.tar.zst /tmp/
-RUN tar xf /tmp/color-compile.tar.zst  -C /tmp/
+RUN mkdir /tmp/color-compile/
+COPY color-compile/ /tmp/color-compile/
 RUN make -C /tmp/color-compile &&make -C /tmp/color-compile install
 
 ENV PATH="${PATH}:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
@@ -55,10 +55,10 @@ ENV PATH="${PATH}:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 COPY config.sh /tmp/
 COPY vimrc  /etc/vim/vimrc.local
 COPY bashrc /tmp/
-COPY user_bashrc /tmp/
+COPY user_bashrc /usr/local/etc
+
 RUN bash /tmp/config.sh
 RUN cat /tmp/bashrc >/root/.bashrc
-#RUN cat /tmp/user_bashrc >/home/whoami/.bashrc
 RUN bash /tmp/config.sh
 
 # Clean cache refuse.
@@ -68,10 +68,10 @@ RUN apt-get -y clean && \
     rm -rf /var/tmp/* && \
     rm -rf /tmp/* 
 
-WORKDIR /
-
 COPY start.sh /usr/local/start.sh
 
 RUN chmod +x /usr/local/start.sh
+
+WORKDIR /
 
 ENTRYPOINT ["/usr/local/start.sh"]
