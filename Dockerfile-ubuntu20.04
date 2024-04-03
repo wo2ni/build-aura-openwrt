@@ -49,6 +49,11 @@ RUN mkdir /tmp/color-compile/
 COPY color-compile/ /tmp/color-compile/
 RUN make -C /tmp/color-compile &&make -C /tmp/color-compile install
 
+# Install po2lmo
+RUN mkdir /tmp/po2lmo
+COPY po2lmo/ /tmp/po2lmo
+RUN make po2lmo -C /tmp/po2lmo &&mv -v /tmp/po2lmo/po2lmo /usr/local/bin
+
 ENV PATH="${PATH}:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
 # Config user workspace.
