@@ -16,7 +16,7 @@ White="\033[1;38m"
 B_Red="\033[41m"
 Blue_White="\033[44m"
 
-printf "${Green}"
+printf "${Cyan_blue}"
 cat << "EOF"
 
  ██████╗ ██████╗ ███████╗███╗   ██╗██╗    ██╗██████╗ ████████╗
@@ -25,9 +25,12 @@ cat << "EOF"
 ██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║██║███╗██║██╔══██╗   ██║
 ╚██████╔╝██║     ███████╗██║ ╚████║╚███╔███╔╝██║  ██║   ██║
  ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚══╝╚══╝ ╚═╝  ╚═╝   ╚═╝
-                        L-H-T
+                        A-U-R-A
+
 EOF
-printf "${Cls}\n"
+printf "${Blue}真正意义上使用容器构建的${Purple}Openwrt${Cls}${Blue}开发环境!${Cls}\n"
+printf "${Green}详细使用文档${Yellow}👉\t${Cls}"
+printf "${Purple}https://github.com/wo2ni/build-auro-openwrt${Cls}\n\n"
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
@@ -90,14 +93,8 @@ alias l='ls -CF'
 alias s='ls -CF'
 alias gcc="color_compile gcc"
 alias g++="color_compile g++"
-alias make="color_compile make"
 
-make='/usr/bin/make'
-alias make_nconfig="/usr/bin/make nconfig"
-alias make_menuconfig="/usr/bin/make menuconfig"
-
-alias make_kernel_nconfig="/usr/bin/make kernel_nconfig"
-alias make_kernel_menuconfig="/usr/bin/make kernel_menuconfig"
+make='color_compile make'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -111,4 +108,24 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export FORCE_UNSAFE_CONFIGURE=1
+
+while ((1)); do
+    printf "选择模式:\n"
+    printf "0)${Yellow}输入${Red}0 ${Yellow}or ${Red}exit 退出 ${Purple}Openwrt Buildroot${Cls}\n"
+    printf "1)${Yellow}按${Green}任意键${Yellow}进入用户: ${Cyan_blue}${MY_USER} ${Purple}Openwrt Buildroot${Cls}\n"
+    printf "2)${Yellow}输入${Green}CTRL+C${Yellow}强制进入root用户.${Cls}\n"
+    printf "请选择: "
+    read option
+    case $option in
+        0)
+            exit 0
+            ;;
+        exit)
+            exit 0
+            ;;
+        *)
+            printf "${Yellow}已切换用户 ${Purple}$MY_USER ${Green}一切就绪!${Cls}\n"
+            su whoami
+           ;;
+    esac
+done
