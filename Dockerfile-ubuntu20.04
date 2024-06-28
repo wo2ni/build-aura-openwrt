@@ -36,13 +36,13 @@ RUN apt-get update && \
 RUN fc-cache -f -v
 
 # Make Openwrt make environment.
-RUN apt-get install -y sudo bash-completion less tree ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+RUN apt-get install -y sudo bash-completion less ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
     bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
     git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
     libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
     mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip python3-pyelftools python3-setuptools \
     libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \
-    vim wget xmlto xxd zlib1g-dev uuid-runtime upx git-core libz-dev lib32gcc-s1 zstd libgsl-dev bc u-boot-tools 
+    vim wget xmlto xxd zlib1g-dev uuid-runtime upx git-core libz-dev lib32gcc-s1 zstd libgsl-dev bc u-boot-tools bsdmainutils
 
 # Config error warning colors.
 RUN mkdir /tmp/color-compile/
