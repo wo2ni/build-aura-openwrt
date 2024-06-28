@@ -1,14 +1,24 @@
-version: '3'
+# Build Openwrt docker-compose
+#
 services:
-  make_openwrt:
-    image: make_openwrt:v1.0
+  build_openwrt:
+    image: build_openwrt:v1.0
     container_name: build_openwrt
-    network_mode: host
-    tty: true
-    volumes:
-      - /work:/root/Openwrt
+    privileged: true
     environment:
       - TZ=Asia/Shanghai
-      #- ALL_PROXY=127.0.0.1:11089
-      #- http_proxy=127.0.0.1:18889
-      #- https_proxy=127.0.0.1:18889
+      - ROOT_PASSWD=whoami
+      - MY_USER=whoami
+      - MY_USER_PASSWD=whoami
+      - ALL_PROXY=
+      - http_proxy=
+      - https_proxy=
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - type: bind
+        source: ./
+        target: /home/whoami/work
+    network_mode: host
+    stdin_open: true
+    tty: true
+
