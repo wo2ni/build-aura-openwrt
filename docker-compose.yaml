@@ -1,0 +1,29 @@
+# This Arch Linux docker-compose.
+#version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ROOT_PASSWD=whoami
+        - MY_USER=whoami
+        - MY_USER_PASSWD=whoami
+    image: build_openwrt:v2.0
+  build_openwrt:
+    image: build_openwrt:v2.0
+    container_name: build_openwrt
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+      - ALL_PROXY=SOCKS5_PROXY_ADDR_PORT
+      - http_proxy=HTTP_PROXY_ADDR_PORT
+      - https_proxy=HTTPS_PROXY_ADDR_PORT
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - type: bind
+        source: /YOU_WORKDIR/
+        target: /CONTAINER_DIR/
+    network_mode: host
+    stdin_open: true
+    tty: true
